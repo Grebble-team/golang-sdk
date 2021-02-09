@@ -1,0 +1,6 @@
+package golang
+
+
+func main() {
+
+}
