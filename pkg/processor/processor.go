@@ -1,7 +1,7 @@
 package processor
 
 type StreamResult struct {
-	Content     string
+	Content     []byte
 	Attributes  map[string]string
 	ContentType string
 }
@@ -12,7 +12,7 @@ type Stream struct {
 
 type Processor interface {
 	Name() string
-	Execute(content string, attributes interface{}, stream Stream) error
+	Execute(content []byte, attributes interface{}, stream Stream) error
 	MapToAttributeType(attribute map[string]string) (interface{}, error)
 }
 

@@ -28,11 +28,11 @@ func (e ExampleProcessor) MapToAttributeType(attributes map[string]string) (inte
 	return result, err
 }
 
-func (e ExampleProcessor) Execute(content string, a interface{}, stream processor.Stream) error {
+func (e ExampleProcessor) Execute(content []byte, a interface{}, stream processor.Stream) error {
 	attribute := a.(Attributes)
 	for _, i := range []int{1, 2, 3, 4} {
 		err := stream.Send(&processor.StreamResult{
-			Content: fmt.Sprintf("%s %s %s", content, string(i), attribute.Name),
+			Content: []byte(fmt.Sprintf("%s %s %s", content, string(i), attribute.Name)),
 			Attributes: map[string]string{
 				"test1": "test2",
 			},

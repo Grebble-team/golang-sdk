@@ -46,7 +46,7 @@ func (p ProcessorServer) Execute(req *v1.FlowExecuteRequest, stream v1.Processor
 	})
 
 	return stream.Send(&v1.FlowExecuteResponse{
-		Content:    "",
+		Content:    []byte{},
 		Attributes: map[string]string{},
 		StreamEnd:  true,
 	})
