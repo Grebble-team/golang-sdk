@@ -13,7 +13,8 @@ type Stream struct {
 
 type Processor interface {
 	Name() string
-	Execute(content string, attributes map[string]string, stream Stream) error
+	Execute(content string, attributes interface{}, stream Stream) error
+	MapToAttributeType(attribute string) (interface{}, error)
 }
 
 type ProcessorsFabric struct {
@@ -26,10 +27,10 @@ func NewProcessorsFabric(processors []Processor) ProcessorsFabric {
 	}
 }
 
-func (p ProcessorsFabric) GetProcessor(name string) (*Processor, error) {
+func (p ProcessorsFabric) GetProcessor(name string) (Processor, error) {
 	for _, processor := range p.Processors {
 		if processor.Name() == name {
-			return &processor, nil
+			return processor, nil
 		}
 	}
 

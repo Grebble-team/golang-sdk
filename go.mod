@@ -3,6 +3,7 @@ module github.com/grebble-team/golang-sdk
 go 1.15
 
 require (
+	github.com/fatih/structs v1.1.0
 	github.com/golang/protobuf v1.4.3 // indirect
 	github.com/kelseyhightower/envconfig v1.4.0
 	golang.org/x/net v0.0.0-20210119194325-5f4716e94777 // indirect

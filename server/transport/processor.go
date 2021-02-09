@@ -23,9 +23,12 @@ func (p ProcessorServer) Execute(req *v1.FlowExecuteRequest, stream v1.Processor
 		return err
 	}
 
-	attributes := map[string]string{}
-	err = json.Unmarshal([]byte(req.Attributes), &attributes)
-	(*processor).Execute(req.Content, attributes, pkgprocessor.Stream{
+	attributes, err := processor.MapToAttributeType(req.Attributes)
+	if err != nil {
+		return err
+	}
+
+	processor.Execute(req.Content, attributes, pkgprocessor.Stream{
 		Send: func(req *pkgprocessor.StreamResult) error {
 			attr, err := json.Marshal(req.Attributes)
 			if err != nil {
