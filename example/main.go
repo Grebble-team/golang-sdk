@@ -8,7 +8,7 @@ import (
 )
 
 type ExampleProcessor struct {
-	processor.Processor
+	processor.UnimplementedProcessor
 }
 
 type Attributes struct {
