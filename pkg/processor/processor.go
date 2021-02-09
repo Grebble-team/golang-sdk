@@ -13,7 +13,7 @@ type Stream struct {
 type Processor interface {
 	Name() string
 	Execute(content string, attributes interface{}, stream Stream) error
-	MapToAttributeType(attribute string) (interface{}, error)
+	MapToAttributeType(attribute map[string]string) (interface{}, error)
 }
 
 type UnimplementedProcessor struct {

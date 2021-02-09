@@ -1,8 +1,8 @@
 package example
 
 import (
-	"encoding/json"
 	"fmt"
+	"github.com/grebble-team/golang-sdk/pkg/helpers"
 	"github.com/grebble-team/golang-sdk/pkg/processor"
 	"github.com/grebble-team/golang-sdk/server"
 )
@@ -19,9 +19,12 @@ func (e ExampleProcessor) Name() string {
 	return "test-processor"
 }
 
-func (e ExampleProcessor) MapToAttributeType(attributes string) (interface{}, error) {
+func (e ExampleProcessor) MapToAttributeType(attributes map[string]string) (interface{}, error) {
 	result := Attributes{}
-	err := json.Unmarshal([]byte(attributes), &result)
+	err := helpers.MapAttributesContentType(attributes, &result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 

@@ -1,7 +1,6 @@
 package transport
 
 import (
-	"encoding/json"
 	v1 "github.com/grebble-team/golang-sdk/pkg/grpc/inner/v1"
 	pkgprocessor "github.com/grebble-team/golang-sdk/pkg/processor"
 )
@@ -30,7 +29,6 @@ func (p ProcessorServer) Execute(req *v1.FlowExecuteRequest, stream v1.Processor
 
 	processor.Execute(req.Content, attributes, pkgprocessor.Stream{
 		Send: func(req *pkgprocessor.StreamResult) error {
-			attr, err := json.Marshal(req.Attributes)
 			if err != nil {
 				return err
 			}
@@ -40,7 +38,7 @@ func (p ProcessorServer) Execute(req *v1.FlowExecuteRequest, stream v1.Processor
 			}
 			return stream.Send(&v1.FlowExecuteResponse{
 				Content:    req.Content,
-				Attributes: string(attr),
+				Attributes: req.Attributes,
 				StreamEnd:  false,
 				MimeType:   mimeType,
 			})
@@ -49,7 +47,7 @@ func (p ProcessorServer) Execute(req *v1.FlowExecuteRequest, stream v1.Processor
 
 	return stream.Send(&v1.FlowExecuteResponse{
 		Content:    "",
-		Attributes: "",
+		Attributes: map[string]string{},
 		StreamEnd:  true,
 	})
 
