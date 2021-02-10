@@ -44,9 +44,6 @@ func GetAttributesSchema(processor Processor) (map[string]AttributeSchema, error
 				Type: field.Type.Name(),
 			}
 		}
-		result[name] = AttributeSchema{
-			Type: field.Type.Name(),
-		}
 	}
 	return result, nil
 }
