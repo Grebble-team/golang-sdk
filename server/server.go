@@ -12,12 +12,14 @@ import (
 
 type Server struct {
 	ProcessorServer transport.ProcessorServer
+	AppServer       transport.AppServer
 }
 
 func NewServer(processors []processor.Processor) Server {
 	processorsFabric := processor.NewProcessorsFabric(processors)
 	return Server{
 		ProcessorServer: transport.NewProcessorServer(processorsFabric),
+		AppServer:       transport.NewAppServer(processorsFabric),
 	}
 }
 
@@ -35,6 +37,7 @@ func (s Server) Start() error {
 	fmt.Printf("Start server")
 
 	v1.RegisterProcessorServer(grpcServer, s.ProcessorServer)
+	v1.RegisterExternalAppServer(grpcServer, s.AppServer)
 	if err := grpcServer.Serve(lis); err != nil {
 		return err
 	}
