@@ -1,5 +1,7 @@
 package processor
 
+import "context"
+
 type StreamResult struct {
 	Content     []byte
 	Attributes  map[string]string
@@ -7,7 +9,8 @@ type StreamResult struct {
 }
 
 type Stream struct {
-	Send func(*StreamResult) error
+	Context context.Context
+	Send    func(*StreamResult) error
 }
 
 type Processor interface {

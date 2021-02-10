@@ -5,6 +5,7 @@ import (
 	"github.com/grebble-team/golang-sdk/pkg/helpers"
 	"github.com/grebble-team/golang-sdk/pkg/processor"
 	"github.com/grebble-team/golang-sdk/server"
+	"time"
 )
 
 type ExampleProcessor struct {
@@ -47,6 +48,19 @@ func (e ExampleProcessor) Execute(content []byte, a interface{}, stream processo
 		}
 	}
 
+	isBreak := false
+
+	go func() {
+		for 1 > 0 {
+			time.Sleep(500)
+			select {
+			case <-stream.Context.Done():
+				isBreak = true
+				return
+			default:
+			}
+		}
+	}()
 	return nil
 }
 

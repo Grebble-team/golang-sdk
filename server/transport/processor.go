@@ -1,6 +1,7 @@
 package transport
 
 import (
+	"context"
 	v1 "github.com/grebble-team/golang-sdk/pkg/grpc/inner/v1"
 	pkgprocessor "github.com/grebble-team/golang-sdk/pkg/processor"
 )
@@ -8,6 +9,7 @@ import (
 type ProcessorServer struct {
 	v1.UnimplementedProcessorServer
 	ProcessorsFabric pkgprocessor.ProcessorsFabric
+	GlobalContext    context.Context
 }
 
 func NewProcessorServer(processorsFabric pkgprocessor.ProcessorsFabric) ProcessorServer {
@@ -28,6 +30,7 @@ func (p ProcessorServer) Execute(req *v1.FlowExecuteRequest, stream v1.Processor
 	}
 
 	processor.Execute(req.Content, attributes, pkgprocessor.Stream{
+		Context: stream.Context(),
 		Send: func(req *pkgprocessor.StreamResult) error {
 			if err != nil {
 				return err
