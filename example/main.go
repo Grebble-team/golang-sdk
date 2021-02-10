@@ -11,8 +11,13 @@ type ExampleProcessor struct {
 	processor.UnimplementedProcessor
 }
 
+type BaseAttributes struct {
+	Id string `json:"id"`
+}
+
 type Attributes struct {
 	Name string `json:"name"`
+	BaseAttributes
 }
 
 func (e ExampleProcessor) Name() string {

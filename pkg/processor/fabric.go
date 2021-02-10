@@ -2,7 +2,7 @@ package processor
 
 import (
 	"fmt"
-	"reflect"
+	"github.com/grebble-team/golang-sdk/pkg/helpers"
 )
 
 type AttributeSchema struct {
@@ -35,11 +35,12 @@ func GetAttributesSchema(processor Processor) (map[string]AttributeSchema, error
 		return nil, err
 	}
 	result := map[string]AttributeSchema{}
-	val := reflect.ValueOf(attributes)
-	for i := 0; i < val.Type().NumField(); i++ {
-		name := val.Type().Field(i).Tag.Get("json")
+
+	fields := helpers.DeepFields(attributes)
+	for _, field := range fields {
+		name := field.Tag.Get("json")
 		result[name] = AttributeSchema{
-			Type: val.Type().Field(i).Type.Name(),
+			Type: field.Type.Name(),
 		}
 	}
 	return result, nil
