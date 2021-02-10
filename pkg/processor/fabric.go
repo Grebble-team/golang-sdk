@@ -39,6 +39,11 @@ func GetAttributesSchema(processor Processor) (map[string]AttributeSchema, error
 	fields := helpers.DeepFields(attributes)
 	for _, field := range fields {
 		name := field.Tag.Get("json")
+		if len(name) > 0 {
+			result[name] = AttributeSchema{
+				Type: field.Type.Name(),
+			}
+		}
 		result[name] = AttributeSchema{
 			Type: field.Type.Name(),
 		}
