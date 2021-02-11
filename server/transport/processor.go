@@ -43,6 +43,7 @@ func (p ProcessorServer) Execute(req *v1.FlowExecuteRequest, stream v1.Processor
 				Content:    req.Content,
 				Attributes: req.Attributes,
 				StreamEnd:  false,
+				Commit:     req.Commit,
 				MimeType:   mimeType,
 			})
 		},

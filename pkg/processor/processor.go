@@ -6,6 +6,7 @@ type StreamResult struct {
 	Content     []byte
 	Attributes  map[string]string
 	ContentType string
+	Commit      bool
 }
 
 type Stream struct {
