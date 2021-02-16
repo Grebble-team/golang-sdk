@@ -7,6 +7,8 @@ import (
 	"github.com/grebble-team/golang-sdk/pkg/setting"
 	"github.com/grebble-team/golang-sdk/server/transport"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/health"
+	"google.golang.org/grpc/health/grpc_health_v1"
 	"net"
 )
 
@@ -34,6 +36,7 @@ func (s Server) Start() error {
 		grpc.MaxRecvMsgSize(52428800),
 		grpc.MaxSendMsgSize(52428800),
 	)
+	grpc_health_v1.RegisterHealthServer(grpcServer, health.NewServer())
 	fmt.Printf("Start server")
 
 	v1.RegisterProcessorServer(grpcServer, s.ProcessorServer)
