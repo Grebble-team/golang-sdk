@@ -2,7 +2,6 @@ package transport
 
 import (
 	"context"
-	"encoding/json"
 	v1 "github.com/grebble-team/golang-sdk/pkg/grpc/inner/v1"
 	pkgprocessor "github.com/grebble-team/golang-sdk/pkg/processor"
 )
@@ -26,13 +25,17 @@ func (p AppServer) AppInfo(ctx context.Context, req *v1.AppExternalInfoRequest) 
 		if err != nil {
 			return nil, err
 		}
-		schemaJson, err := json.Marshal(attributeSchema)
-		if err != nil {
-			return nil, err
+
+		attributeSchemaRes := v1.AttributeSchema{}
+		for key, element := range attributeSchema {
+			attributeSchemaRes.Items[key] = &v1.AttributeSchemaItem{
+				Type:        element.Type,
+				Description: element.Description,
+			}
 		}
 		response.Processors = append(response.Processors, &v1.ProcessorExternalInfo{
 			Name:            processor.Name(),
-			AttributeSchema: string(schemaJson),
+			AttributeSchema: &attributeSchemaRes,
 		})
 	}
 
