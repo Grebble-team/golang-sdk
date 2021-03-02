@@ -6,7 +6,8 @@ import (
 )
 
 type AttributeSchema struct {
-	Type string `json:"type"`
+	Type        string `json:"type"`
+	Description string `json:"description"`
 }
 
 type ProcessorsFabric struct {
@@ -41,7 +42,8 @@ func GetAttributesSchema(processor Processor) (map[string]AttributeSchema, error
 		name := field.Tag.Get("json")
 		if len(name) > 0 {
 			result[name] = AttributeSchema{
-				Type: field.Type.Name(),
+				Type:        field.Type.Name(),
+				Description: field.Tag.Get("description"),
 			}
 		}
 	}

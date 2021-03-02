@@ -13,11 +13,11 @@ type ExampleProcessor struct {
 }
 
 type BaseAttributes struct {
-	Id string `json:"id"`
+	Id string `json:"id" description:"Id of base attributes"`
 }
 
 type Attributes struct {
-	Name string `json:"name"`
+	Name string `json:"name" description:"Name of base attributes"` //Name or example processor
 	BaseAttributes
 }
 
