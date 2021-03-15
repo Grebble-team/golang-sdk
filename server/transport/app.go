@@ -26,7 +26,9 @@ func (p AppServer) AppInfo(ctx context.Context, req *v1.AppExternalInfoRequest) 
 			return nil, err
 		}
 
-		attributeSchemaRes := v1.AttributeSchema{}
+		attributeSchemaRes := v1.AttributeSchema{
+			Items: make(map[string]*v1.AttributeSchemaItem),
+		}
 		for key, element := range attributeSchema {
 			attributeSchemaRes.Items[key] = &v1.AttributeSchemaItem{
 				Type:        element.Type,
