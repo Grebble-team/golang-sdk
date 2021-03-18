@@ -30,7 +30,7 @@ func NewProcessorClient(cc grpc.ClientConnInterface) ProcessorClient {
 }
 
 func (c *processorClient) Execute(ctx context.Context, in *FlowExecuteRequest, opts ...grpc.CallOption) (Processor_ExecuteClient, error) {
-	stream, err := c.cc.NewStream(ctx, &Processor_ServiceDesc.Streams[0], "/grebbleFlow.v1.Processor/Execute", opts...)
+	stream, err := c.cc.NewStream(ctx, &Processor_ServiceDesc.Streams[0], "/grebbleFlow.inner.v1.Processor/Execute", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -114,7 +114,7 @@ func (x *processorExecuteServer) Send(m *FlowExecuteResponse) error {
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Processor_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "grebbleFlow.v1.Processor",
+	ServiceName: "grebbleFlow.inner.v1.Processor",
 	HandlerType: (*ProcessorServer)(nil),
 	Methods:     []grpc.MethodDesc{},
 	Streams: []grpc.StreamDesc{

@@ -31,7 +31,7 @@ func NewExternalAppClient(cc grpc.ClientConnInterface) ExternalAppClient {
 
 func (c *externalAppClient) AppInfo(ctx context.Context, in *AppExternalInfoRequest, opts ...grpc.CallOption) (*AppInfoExternalResponse, error) {
 	out := new(AppInfoExternalResponse)
-	err := c.cc.Invoke(ctx, "/grebbleFlow.v1.ExternalApp/AppInfo", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/grebbleFlow.inner.v1.ExternalApp/AppInfo", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -76,7 +76,7 @@ func _ExternalApp_AppInfo_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/grebbleFlow.v1.ExternalApp/AppInfo",
+		FullMethod: "/grebbleFlow.inner.v1.ExternalApp/AppInfo",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ExternalAppServer).AppInfo(ctx, req.(*AppExternalInfoRequest))
@@ -88,7 +88,7 @@ func _ExternalApp_AppInfo_Handler(srv interface{}, ctx context.Context, dec func
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var ExternalApp_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "grebbleFlow.v1.ExternalApp",
+	ServiceName: "grebbleFlow.inner.v1.ExternalApp",
 	HandlerType: (*ExternalAppServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
