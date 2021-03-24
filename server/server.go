@@ -32,9 +32,10 @@ func (s Server) Start() error {
 		panic(err)
 	}
 
+	//TODO Set as paramaeters
 	grpcServer := grpc.NewServer(
-		grpc.MaxRecvMsgSize(52428800),
-		grpc.MaxSendMsgSize(52428800),
+		grpc.MaxRecvMsgSize(52428800000),
+		grpc.MaxSendMsgSize(52428800000),
 	)
 	grpc_health_v1.RegisterHealthServer(grpcServer, health.NewServer())
 	fmt.Printf("Start server")
