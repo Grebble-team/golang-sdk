@@ -38,9 +38,9 @@ func (s Server) Start() error {
 		grpc.MaxRecvMsgSize(maxRecvMsgSize), //256Mi
 		grpc.MaxSendMsgSize(maxRecvMsgSize), //256Mi
 	)
-	fmt.Printf("MaxRecvMsgSize server %d", maxRecvMsgSize)
+	fmt.Printf("MaxRecvMsgSize server %d \n", maxRecvMsgSize)
 	grpc_health_v1.RegisterHealthServer(grpcServer, health.NewServer())
-	fmt.Printf("Start server")
+	fmt.Printf("Start server \n")
 
 	v1.RegisterProcessorServer(grpcServer, s.ProcessorServer)
 	v1.RegisterExternalAppServer(grpcServer, s.AppServer)
