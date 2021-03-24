@@ -32,7 +32,7 @@ func (s Server) Start() error {
 		panic(err)
 	}
 
-	//TODO Set as paramaeters
+	//TODO Set as parameters
 	grpcServer := grpc.NewServer(
 		grpc.MaxRecvMsgSize(1024*1024*256), //256Mi
 		grpc.MaxSendMsgSize(1024*1024*256), //256Mi
