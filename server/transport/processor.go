@@ -36,23 +36,16 @@ func (p ProcessorServer) Execute(req *v1.FlowExecuteRequest, stream v1.Processor
 				return err
 			}
 			mimeType := "text/plain"
-			if len(req.ContentType) > 0  {
+			if len(req.ContentType) > 0 {
 				mimeType = req.ContentType
 			}
 			return stream.Send(&v1.FlowExecuteResponse{
 				Content:    req.Content,
 				Attributes: req.Attributes,
-				StreamEnd:  false,
 				Commit:     req.Commit,
 				MimeType:   mimeType,
 			})
 		},
-	})
-
-	return stream.Send(&v1.FlowExecuteResponse{
-		Content:    []byte{},
-		Attributes: map[string]string{},
-		StreamEnd:  true,
 	})
 
 	return nil
